@@ -19,9 +19,6 @@ import java.util.logging.Logger;
  */
 public class Actividad1 {
     public static void main(String[] args) {
-        System.out.println("Archivo: "+leerArchivo("a1_matricula", "txt"));
-        generarLog("PRUEBA", 0.00);
-        System.out.println("Archivo2: "+leerArchivo("a1_matricula", "txt"));
         menuPrincipal();
         
     }
@@ -75,9 +72,9 @@ public class Actividad1 {
             if (!file.exists()) {
                 file.createNewFile();
             }
-            FileWriter fw = new FileWriter(file);
+            FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
             PrintWriter pw = new PrintWriter(fw);
-            pw.println(leerArchivo("a1_matricula", "txt")+path + " ----- "+tiempo +" Milisegundos");
+            pw.println(path + " ----- "+tiempo +" Milisegundos");
             pw.close();
         } catch (IOException ex) {
             Logger.getLogger(Actividad1.class.getName()).log(Level.SEVERE, null, ex);
@@ -94,9 +91,9 @@ public class Actividad1 {
             if (!file.exists()) {
                 file.createNewFile();
             }
-            FileWriter fw = new FileWriter(file);
+            FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(leerArchivo("a1_matricula", "txt") + "Tiempo total en abrir los archivos " + " ----- "+tiempoTotal +" Milisegundos");
+            bw.write("Tiempo total en abrir los archivos " + " ----- "+tiempoTotal +" Milisegundos");
             bw.close();
         } catch (IOException ex) {
             Logger.getLogger(Actividad1.class.getName()).log(Level.SEVERE, null, ex);
