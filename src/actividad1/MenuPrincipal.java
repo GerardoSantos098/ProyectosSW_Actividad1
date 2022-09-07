@@ -39,9 +39,9 @@ public class MenuPrincipal {
                     documento.generarLog(tiempoTotal);
                     break;
                 case "3":
+                    documento.limpiarHTML("003");
                     break;
                 case "4":
-                    documento.separarPalabras();
                     break;
                 case "5":
                     System.out.println("Esta seguro que desea salir? (S/N)");

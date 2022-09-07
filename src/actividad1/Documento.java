@@ -10,47 +10,112 @@ public class Documento {
 
     StringBuffer s;
 
-    public static void separarPalabras(){
-        String documento = leerArchivo("003", "html");
+    public void limpiarHTML(String archivo){
+
+        String documento = leerArchivo(archivo, "html");
         System.out.println("ANTES: " + documento);
-        documento = documento.replaceAll("<html>/n", "");
-        documento = documento.replaceAll("<head>/n", "");
-        documento = documento.replaceAll("<title>", "");
-        documento = documento.replaceAll("<title>/n", "");
-        documento = documento.replaceAll("<body>/n", "");
-        documento = documento.replaceAll("<center>/n", "");
-        documento = documento.replaceAll("<h1>", "");
-        documento = documento.replaceAll("<h1>/n", "");
-        documento = documento.replaceAll("</center>/n<hr", "");
-        documento = documento.replaceAll("size=7", "");
-        documento = documento.replaceAll("width=75%>", "");
-        documento = documento.replaceAll("<a", "");
-        documento = documento.replaceAll("href=\"#followups\">", "");
-        documento = documento.replaceAll("</a>", "");
-        documento = documento.replaceAll("</title>/n", "");
-        documento = documento.replaceAll("</head>/n", "");
-        documento = documento.replaceAll("</h1>/n", "");
-        documento = documento.replaceAll("/n<center>", "");
-        documento = documento.replaceAll("href=\"#postfp\">", "");
-        documento = documento.replaceAll("href=\"", "");
-        documento = documento.replaceAll("<p>/n", "");
-        documento = documento.replaceAll("<br>", "");
-        documento = documento.replaceAll("<br>/n<br>/n<br><hr", "");
-        documento = documento.replaceAll("<p>/n", "");
-        documento = documento.replaceAll("\">", "");
-        documento = documento.replaceAll("/n/n<hr", "");
-        documento = documento.replaceAll("name=\"", "");
-        documento = documento.replaceAll(":/n<ul><!--insert:", "");
-        documento = documento.replaceAll("35-->/n<!--top:", "");
-        documento = documento.replaceAll("9--><li>", "");
-        documento = documento.replaceAll("39.html\">Re", "");
-        documento = documento.replaceAll("<b>", "");
+
+        documento = documento.replaceAll("<html>/n", " ");
+        documento = documento.replaceAll("<head>/n", " ");
+        documento = documento.replaceAll("<title>", " ");
+        documento = documento.replaceAll("<title>/n", " ");
+        documento = documento.replaceAll("<body>/n", " ");
+        documento = documento.replaceAll("<center>/n", " ");
+        documento = documento.replaceAll("<h1>", " ");
+        documento = documento.replaceAll("<h1>/n", " ");
+        documento = documento.replaceAll("</center>/n<hr", " ");
+        documento = documento.replaceAll("size=7", " ");
+        documento = documento.replaceAll("width=75%>", " ");
+        documento = documento.replaceAll("<a", " ");
+        documento = documento.replaceAll("href=\"#followups\">", " ");
+        documento = documento.replaceAll("</a>", " ");
+        documento = documento.replaceAll("</title>/n", " ");
+        documento = documento.replaceAll("</head>/n", " ");
+        documento = documento.replaceAll("</h1>/n", " ");
+        documento = documento.replaceAll("/n<center>", " ");
+        documento = documento.replaceAll("href=\"#postfp\">", " ");
+        documento = documento.replaceAll("href=\"", " ");
+        documento = documento.replaceAll("<p>/n", " ");
+        documento = documento.replaceAll("<br>", " ");
+        documento = documento.replaceAll("<br>/n<br>/n<br><hr", " ");
+        documento = documento.replaceAll("<p>/n", " ");
+        documento = documento.replaceAll("\">", " ");
+        documento = documento.replaceAll("/n/n<hr", " ");
+        documento = documento.replaceAll("name=\"", " ");
+        documento = documento.replaceAll(":/n<ul><!--insert:", " ");
+        documento = documento.replaceAll("35-->/n<!--top:", " ");
+        documento = documento.replaceAll("9--><li>", " ");
+        documento = documento.replaceAll("39.html\">Re", " ");
+        documento = documento.replaceAll("<b>", " ");
+        documento = documento.replaceAll("\\[", " ");
+        documento = documento.replaceAll("\\]", " ");
+        documento = documento.replaceAll(",", " ");
+        documento = documento.replaceAll("</b>", " ");
+        documento = documento.replaceAll("<i>", " ");
+        documento = documento.replaceAll("</i>/n\\(<!--responses:", " ");
+        documento = documento.replaceAll("39-->0\\)/n<ul><!--insert:", " ");
+        documento = documento.replaceAll("39-->/n</ul><!--end:", " ");
+        documento = documento.replaceAll("39-->/n<!--top:", " ");
+        documento = documento.replaceAll("36--><li>", " ");
+        documento = documento.replaceAll("36.htmlRe:", " ");
+        documento = documento.replaceAll("36-->0\\)/n<ul><!--insert:", " ");
+        documento = documento.replaceAll("36-->/n</ul><!--end:", " ");
+        documento = documento.replaceAll("35-->/n<hr", " ");
+        documento = documento.replaceAll("<form", " ");
+        documento = documento.replaceAll("method=POST", " ");
+        documento = documento.replaceAll("action=\"", " ");
+        documento = documento.replaceAll("<input", " ");
+        documento = documento.replaceAll("type=hidden", " ");
+        documento = documento.replaceAll("\"", " ");
+        documento = documento.replaceAll("value=\"35/n<input", " ");
+        documento = documento.replaceAll("type=hidden", " ");
+        documento = documento.replaceAll("origname\"", " ");
+        documento = documento.replaceAll("value=\"", " ");
+        documento = documento.replaceAll("/n<input", " ");
+        documento = documento.replaceAll("39.htmlRe:", " ");
+        documento = documento.replaceAll("39.htmlRe:", " ");
+        documento = documento.replaceAll("/n", " ");
+        documento = documento.replaceAll("<hr", " ");
+        documento = documento.replaceAll("/n<ul><!--insert:", " ");
+        documento = documento.replaceAll("39.html", " ");
+        documento = documento.replaceAll("Re:", " ");
+        documento = documento.replaceAll("35-->/n", " ");
+        documento = documento.replaceAll("<hr", " ");
+        documento = documento.replaceAll("value=", " ");
+        documento = documento.replaceAll("/nName:", " ");
+        documento = documento.replaceAll("type=text", " ");
+        documento = documento.replaceAll("size=50>", " ");
+        documento = documento.replaceAll("/nE-Mail:", " ");
+        documento = documento.replaceAll("size=50>", " ");
+        documento = documento.replaceAll("Subject:", " ");
+        documento = documento.replaceAll("Subject:", " ");
+        documento = documento.replaceAll("Name:", " ");
+        documento = documento.replaceAll("E-Mail:", " ");
+        documento = documento.replaceAll("Comments:", " ");
+        documento = documento.replaceAll("<textarea", " ");
+        documento = documento.replaceAll("COLS=50", " ");
+        documento = documento.replaceAll("ROWS=10>", " ");
+        documento = documento.replaceAll(":", " ");
+        documento = documento.replaceAll("</textarea>", " ");
+        documento = documento.replaceAll("</textarea>", " ");
+        documento = documento.replaceAll("size=48>", " ");
+        documento = documento.replaceAll("size=49>", " ");
+        documento = documento.replaceAll("type=submit", " ");
+        documento = documento.replaceAll("type=reset>", " ");
+        documento = documento.replaceAll("<p>", " ");
+        documento = documento.replaceAll("</center>", " ");
+        documento = documento.replaceAll("</body>", " ");
+        documento = documento.replaceAll("</html>", " ");
+        documento = documento.replaceAll("//", " ");
+        documento = documento.replaceAll("<ul><!--insert", " ");
+        documento = documento.replaceAll("36.html", " ");
+        documento = documento.replaceAll("35-->", " ");
+        documento = documento.replaceAll("url_title", " ");
 
         String[] split = documento.split(" ");
         for (int i=0; i<split.length; i++)
             if(!split[i].equals(""))
                 System.out.println( i + " - " + split[i]);
-
     }
 
     public static Double tiempoLeerArchivo(String nombre){
