@@ -5,117 +5,77 @@ import java.util.Formatter;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Documento {
 
+    private static final String PATH2  = "\\SinHTML\\";
+    private static final String PATH3  = "\\Consolidados\\";
+    long inicio = 0;
+    long fin = 0;
     StringBuffer s;
 
-    public void limpiarHTML(String archivo){
+    public double acomodarPalabrasPorLista(String nombreArchivo){
+        calculaTiempo(1, nombreArchivo + ".html", 3);
+        String documento = leerArchivo("\\SinHTML\\"+nombreArchivo, "html");
+        // Genera nuevo archivo
+        try {
+            String ruta = "C:\\Files\\PorLista\\" + nombreArchivo + ".txt" ;
+            File file = new File(ruta);
+            file.delete();
+            file.createNewFile();
+            String[] split = documento.split("/n");
+            FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+            PrintWriter pw = new PrintWriter(fw);
+            for (int i=0; i<split.length; i++) {
+                if (!split[i].equals("")) {
+                    pw.println(split[i]);
+                    //System.out.println(split[i]);
+                }
+            }
+            pw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Documento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return calculaTiempo(2, nombreArchivo + ".html", 3);
+    }
 
-        String documento = leerArchivo(archivo, "html");
-        System.out.println("ANTES: " + documento);
-
-        documento = documento.replaceAll("<html>/n", " ");
-        documento = documento.replaceAll("<head>/n", " ");
-        documento = documento.replaceAll("<title>", " ");
-        documento = documento.replaceAll("<title>/n", " ");
-        documento = documento.replaceAll("<body>/n", " ");
-        documento = documento.replaceAll("<center>/n", " ");
-        documento = documento.replaceAll("<h1>", " ");
-        documento = documento.replaceAll("<h1>/n", " ");
-        documento = documento.replaceAll("</center>/n<hr", " ");
-        documento = documento.replaceAll("size=7", " ");
-        documento = documento.replaceAll("width=75%>", " ");
-        documento = documento.replaceAll("<a", " ");
-        documento = documento.replaceAll("href=\"#followups\">", " ");
-        documento = documento.replaceAll("</a>", " ");
-        documento = documento.replaceAll("</title>/n", " ");
-        documento = documento.replaceAll("</head>/n", " ");
-        documento = documento.replaceAll("</h1>/n", " ");
-        documento = documento.replaceAll("/n<center>", " ");
-        documento = documento.replaceAll("href=\"#postfp\">", " ");
-        documento = documento.replaceAll("href=\"", " ");
-        documento = documento.replaceAll("<p>/n", " ");
-        documento = documento.replaceAll("<br>", " ");
-        documento = documento.replaceAll("<br>/n<br>/n<br><hr", " ");
-        documento = documento.replaceAll("<p>/n", " ");
-        documento = documento.replaceAll("\">", " ");
-        documento = documento.replaceAll("/n/n<hr", " ");
-        documento = documento.replaceAll("name=\"", " ");
-        documento = documento.replaceAll(":/n<ul><!--insert:", " ");
-        documento = documento.replaceAll("35-->/n<!--top:", " ");
-        documento = documento.replaceAll("9--><li>", " ");
-        documento = documento.replaceAll("39.html\">Re", " ");
-        documento = documento.replaceAll("<b>", " ");
+    public double limpiarHTML(String nombreArchivo){
+        calculaTiempo(1, nombreArchivo + ".html", 2);
+        String documento = leerArchivo(nombreArchivo, "html");
+        //System.out.println("ANTES: " + documento);
+        documento = documento.replaceAll("\\<.*?\\>", " ");
+        documento = documento.replaceAll("/n", " ");
+        documento = documento.replaceAll("\\[ ", " ");
+        documento = documento.replaceAll("\\] ", " ");
         documento = documento.replaceAll("\\[", " ");
         documento = documento.replaceAll("\\]", " ");
-        documento = documento.replaceAll(",", " ");
-        documento = documento.replaceAll("</b>", " ");
-        documento = documento.replaceAll("<i>", " ");
-        documento = documento.replaceAll("</i>/n\\(<!--responses:", " ");
-        documento = documento.replaceAll("39-->0\\)/n<ul><!--insert:", " ");
-        documento = documento.replaceAll("39-->/n</ul><!--end:", " ");
-        documento = documento.replaceAll("39-->/n<!--top:", " ");
-        documento = documento.replaceAll("36--><li>", " ");
-        documento = documento.replaceAll("36.htmlRe:", " ");
-        documento = documento.replaceAll("36-->0\\)/n<ul><!--insert:", " ");
-        documento = documento.replaceAll("36-->/n</ul><!--end:", " ");
-        documento = documento.replaceAll("35-->/n<hr", " ");
-        documento = documento.replaceAll("<form", " ");
-        documento = documento.replaceAll("method=POST", " ");
-        documento = documento.replaceAll("action=\"", " ");
-        documento = documento.replaceAll("<input", " ");
-        documento = documento.replaceAll("type=hidden", " ");
-        documento = documento.replaceAll("\"", " ");
-        documento = documento.replaceAll("value=\"35/n<input", " ");
-        documento = documento.replaceAll("type=hidden", " ");
-        documento = documento.replaceAll("origname\"", " ");
-        documento = documento.replaceAll("value=\"", " ");
-        documento = documento.replaceAll("/n<input", " ");
-        documento = documento.replaceAll("39.htmlRe:", " ");
-        documento = documento.replaceAll("39.htmlRe:", " ");
-        documento = documento.replaceAll("/n", " ");
-        documento = documento.replaceAll("<hr", " ");
-        documento = documento.replaceAll("/n<ul><!--insert:", " ");
-        documento = documento.replaceAll("39.html", " ");
-        documento = documento.replaceAll("Re:", " ");
-        documento = documento.replaceAll("35-->/n", " ");
-        documento = documento.replaceAll("<hr", " ");
-        documento = documento.replaceAll("value=", " ");
-        documento = documento.replaceAll("/nName:", " ");
-        documento = documento.replaceAll("type=text", " ");
-        documento = documento.replaceAll("size=50>", " ");
-        documento = documento.replaceAll("/nE-Mail:", " ");
-        documento = documento.replaceAll("size=50>", " ");
-        documento = documento.replaceAll("Subject:", " ");
-        documento = documento.replaceAll("Subject:", " ");
-        documento = documento.replaceAll("Name:", " ");
-        documento = documento.replaceAll("E-Mail:", " ");
-        documento = documento.replaceAll("Comments:", " ");
-        documento = documento.replaceAll("<textarea", " ");
-        documento = documento.replaceAll("COLS=50", " ");
-        documento = documento.replaceAll("ROWS=10>", " ");
-        documento = documento.replaceAll(":", " ");
-        documento = documento.replaceAll("</textarea>", " ");
-        documento = documento.replaceAll("</textarea>", " ");
-        documento = documento.replaceAll("size=48>", " ");
-        documento = documento.replaceAll("size=49>", " ");
-        documento = documento.replaceAll("type=submit", " ");
-        documento = documento.replaceAll("type=reset>", " ");
-        documento = documento.replaceAll("<p>", " ");
-        documento = documento.replaceAll("</center>", " ");
-        documento = documento.replaceAll("</body>", " ");
-        documento = documento.replaceAll("</html>", " ");
-        documento = documento.replaceAll("//", " ");
-        documento = documento.replaceAll("<ul><!--insert", " ");
-        documento = documento.replaceAll("36.html", " ");
-        documento = documento.replaceAll("35-->", " ");
-        documento = documento.replaceAll("url_title", " ");
-
+        documento = documento.replaceAll("\\[ ", " ");
+        documento = documento.replaceAll("\\] ", " ");
+        documento = documento.replaceAll("\\p{Punct}", " ");
+        documento = documento.replaceAll("\\p{IsPunctuation}", " ");
         String[] split = documento.split(" ");
-        for (int i=0; i<split.length; i++)
-            if(!split[i].equals(""))
-                System.out.println( i + " - " + split[i]);
+        // Genera nuevo archivo
+        try {
+            String ruta = "C:\\Files\\SinHTML\\" + nombreArchivo + ".html" ;
+            File file = new File(ruta);
+            file.delete();
+            file.createNewFile();
+
+            FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+            PrintWriter pw = new PrintWriter(fw);
+            for (int i=0; i<split.length; i++) {
+                if (!split[i].equals("")) {
+                    pw.println(split[i]);
+                    //System.out.println(split[i]);
+                }
+            }
+            pw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Documento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return calculaTiempo(2, nombreArchivo + ".html", 2);
     }
 
     public static Double tiempoLeerArchivo(String nombre){
@@ -134,7 +94,7 @@ public class Documento {
         long fin = System.currentTimeMillis();
         double tiempo = (double) ((fin - inicio));
         System.out.println(path + " ----- "+tiempo +" Milisegundos");
-        generarLog(path, tiempo);
+        generarLog(path, tiempo, 1);
         return tiempo;
     }
 
@@ -158,10 +118,9 @@ public class Documento {
         return texto;
     }
 
-    public static void generarLog(String path, Double tiempo)
-    {
+    public static void generarLog(String path, Double tiempo, int num) {
         try {
-            String ruta = "C:\\FIles\\" +"a1_matricula.txt";
+            String ruta = "C:\\FIles\\" +"a"+num+"_matricula.txt";
             File file = new File(ruta);
             // Si el archivo no existe es creado
             if (!file.exists()) {
@@ -177,18 +136,16 @@ public class Documento {
 
     }
 
-    public static void generarLog(Double tiempoTotal)
-    {
+    public static void generarLog(Double tiempoTotal, int num) {
         try {
-            String ruta = "C:\\FIles\\" +"a1_matricula.txt";
+            String ruta = "C:\\Files\\" +"a"+num+"_matricula.txt";
             File file = new File(ruta);
-            // Si el archivo no existe es creado
-            if (!file.exists()) {
-                file.createNewFile();
-            }
+            //file.delete();
+            //file.createNewFile();
+
             FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write("Tiempo total en abrir los archivos " + " ----- "+tiempoTotal +" Milisegundos");
+            bw.write("Tiempo total: " + " ----- "+tiempoTotal +" Milisegundos");
             bw.close();
         } catch (IOException ex) {
             Logger.getLogger(Documento.class.getName()).log(Level.SEVERE, null, ex);
@@ -202,4 +159,229 @@ public class Documento {
         return sn.nextLine();
      }
 
+    public double consolidarArchivo(String nombreArchivo){
+        calculaTiempo(1, nombreArchivo+".txt", 4);
+        String documento = leerArchivo("PorLista\\"+nombreArchivo, "txt");
+        String[] split = documento.split("/n");
+        ArrayList<String> palabras = new ArrayList<>();
+        for (int i=0; i<split.length; i++){
+            split[i] = split[i].toLowerCase();
+            palabras.add(split[i]);
+        }
+        Collections.sort(palabras);
+
+        // Genera nuevo archivo
+        try {
+            String ruta = "C:\\Files\\Consolidados\\" + nombreArchivo + ".txt" ;
+            File file = new File(ruta);
+            // Si el archivo no existe es creado
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+            PrintWriter pw = new PrintWriter(fw);
+            for (int i=0; i<palabras.size(); i++) {
+                if (!palabras.get(i).equals("")) {
+                    pw.println(palabras.get(i));
+                    //System.out.println(palabras.get(i));
+                }
+            }
+            pw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Documento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return calculaTiempo(2, nombreArchivo+".txt", 4);
+    }
+
+    public void tokens(String nombreArchivo){
+        String documento = leerArchivo(PATH3+"simple", "txt");
+        String documento2 = leerArchivo(PATH3+"medium", "txt");
+        String documento3 = leerArchivo(PATH3+"hard", "txt");
+        documento = documento + documento2 + documento3;
+        String[] split = documento.split("/n");
+        ArrayList lista = new ArrayList();
+        for(String temporal3: split){
+            lista.add(temporal3);
+        }
+        Collections.sort(lista);
+        String temporal = lista.get(0).toString();
+        int repeticiones = 0;
+
+        // Genera nuevo archivo
+        try {
+            String ruta = "C:\\Files\\tokens.txt" ;
+            File file = new File(ruta);
+            file.delete();
+            file.createNewFile();
+            FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+            PrintWriter pw = new PrintWriter(fw);
+            for(int i=0; i< lista.size();i++){
+                if(temporal.equals(lista.get(i))){
+                    temporal = lista.get(i).toString();
+                    repeticiones++;
+                }else{
+                    pw.println(temporal+" "+repeticiones);
+                    temporal = lista.get(i).toString();
+                    repeticiones = 0;
+                    i--;
+                }
+            }
+            pw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Documento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public double tokenizarArchivos(String nombreArchivo){
+        calculaTiempo(1, nombreArchivo+".txt", 5);
+        String documento = leerArchivo(PATH3+nombreArchivo, "txt");
+        String[] split = documento.split("/n");
+        String temporal = split[0];
+        int repeticiones = 0;
+
+        // Genera nuevo archivo
+        try {
+            String ruta = "C:\\Files\\Tokens\\"+nombreArchivo+".txt" ;
+            File file = new File(ruta);
+            file.delete();
+            file.createNewFile();
+            FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+            PrintWriter pw = new PrintWriter(fw);
+            for(int i=0; i< split.length;i++){
+                if(temporal.equals(split[i])){
+                    temporal = split[i];
+                    repeticiones++;
+                }else{
+                    pw.println(temporal+" "+repeticiones);
+                    temporal = split[i];
+                    repeticiones = 0;
+                    i--;
+                }
+            }
+            pw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Documento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return calculaTiempo(2, nombreArchivo+".txt", 5);
+    }
+
+
+    public double tokenGeneral(String nombreArchivo){
+        calculaTiempo(1, nombreArchivo+".txt", 6);
+        String documento = leerArchivo("Tokens\\"+nombreArchivo, "txt");
+        String[] split1 = documento.split("/n");
+        String[][] palabras = new String[split1.length][3];
+        for (int i=0; i<split1.length; i++){
+            String[] split2 = split1[i].split(" ");
+            palabras[i][0] = split2[0];
+            palabras[i][1] = split2[1];
+            palabras[i][2] = "1";
+        }
+        for (int i = 3; i < 504; i++) {
+            Formatter fmt = new Formatter();
+            fmt.format("%03d", i);
+            String documentoTemporal = leerArchivo("Tokens\\"+fmt.toString(), "txt");
+            String[] split3 = documentoTemporal.split("/n");
+            String[][] palabrasTemporal = new String[split3.length][2];
+            for (int iterador=0; iterador<split3.length; iterador++){
+                String[] splitTemporal = split3[iterador].split(" ");
+                palabrasTemporal[iterador][0] = splitTemporal[0];
+                palabrasTemporal[iterador][1] = splitTemporal[1];
+            }
+            fmt.close();
+
+            for(int x=0; x<palabras.length;x++){
+                for(int y=0; y<palabrasTemporal.length; y++){
+                    if(palabras[x][0].equals(palabrasTemporal[y][0])){
+                        palabras[x][1] = (Integer.parseInt(palabras[x][1]) + Integer.parseInt(palabrasTemporal[y][1]))+ "";
+                        palabras[x][2] = (Integer.parseInt(palabras[x][2]) + 1) + "";
+                    }
+                }
+            }
+            try{
+                String ruta = "C:\\Files\\\\"+"palabrasArchivo.txt" ;
+                File file = new File(ruta);
+                file.delete();
+                file.createNewFile();
+                FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+                PrintWriter pw = new PrintWriter(fw);
+                for(int intera = 0; intera<palabras.length; intera++){
+                    pw.println(palabras[intera][0]+" "+palabras[intera][1]+" "+palabras[intera][2]);
+                }
+                pw.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Documento.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return calculaTiempo(2, nombreArchivo+".txt", 6);
+    }
+
+    public double generarPosting(String nombreArchivo){
+        calculaTiempo(1, nombreArchivo+".txt", 7); //Abre Calculo de tiempo
+
+        String documento = leerArchivo("palabrasArchivo","txt"); //Archivo con todas las palabras
+            String[] split1 = documento.split("/n"); //Separa por reglon
+
+            //Separa registros por nombre, repeticiones, numero de archivos donde se encuentra
+            String[] palabrasTemporal = new String[split1.length];
+            for (int iterador=0; iterador<split1.length; iterador++){
+                String[] splitTemporal = split1[iterador].split(" ");
+                palabrasTemporal[iterador] = splitTemporal[0];
+            }
+
+            // Compara palabras con las del diccionario
+            ArrayList<String> posting = new ArrayList<>();
+            for(int x=0; x<palabrasTemporal.length; x++){ //Recorre el archivo de palabras
+                for(int x2 = 2; x2<4 ; x2++){
+                    Formatter fmt = new Formatter();
+                    fmt.format("%03d", x2);
+                    String documentoTemporal = leerArchivo("Tokens\\"+fmt.toString(), "txt");
+                    String[] split3 = documentoTemporal.split("/n");
+                    int repeticiones =1;
+                    for(int x4=0; x4<split3.length;x4++){
+                        if(palabrasTemporal[x].equals(split3[x4])){
+                            repeticiones++;
+                        }
+                    }
+                    posting.add(fmt +" "+ repeticiones);
+                }
+            }
+            for(int a = 0; a<posting.size();a++){
+                System.out.println(posting.get(a));
+            }
+            // Guarda en documento
+        try{
+            String ruta = "C:\\Files\\\\"+"posting.txt" ;
+            File file = new File(ruta);
+            file.delete();
+            file.createNewFile();
+            FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+            PrintWriter pw = new PrintWriter(fw);
+            for(int intera = 0; intera<posting.size(); intera++){
+                pw.println(posting.get(intera));
+            }
+            pw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Documento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return calculaTiempo(2, nombreArchivo+".txt", 7); //Cierra Calculo de tiempo y retorna el tiempo que se llevo la funcion
+    }
+
+    public double calculaTiempo(int opcion, String path, int num){
+        double tiempo = 0.0000;
+        if(opcion == 1)
+            inicio = System.currentTimeMillis();
+        else if(opcion == 2){
+            fin = System.currentTimeMillis();
+            tiempo = (double) ((fin - inicio));
+            System.out.println(path + " ----- "+tiempo +" Milisegundos");
+            generarLog(path, tiempo, num);
+        }
+        else{
+            System.out.println("Esta no es una opcion valida. 1 start o 2 end");
+        }
+        return tiempo;
+    }
 }
